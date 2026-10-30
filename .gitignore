@@ -1,0 +1,11 @@
+# raw corpus (re-clone it; see README)
+data/
+# training outputs / checkpoints
+runs/
+# your private song lyrics test set; only the template is tracked
+songs/*.jsonl
+!songs/song_test.template.jsonl
+__pycache__/
+*.pyc
+.env
+.venv/

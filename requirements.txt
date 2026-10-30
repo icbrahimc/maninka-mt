@@ -1,0 +1,6 @@
+torch>=2.3
+transformers>=4.46
+datasets>=2.19
+sacrebleu>=2.4
+sentencepiece
+accelerate>=0.30

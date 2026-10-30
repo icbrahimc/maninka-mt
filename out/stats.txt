@@ -1,0 +1,36 @@
+train 118977  dev 500  test 500
+exact duplicates removed: 6171
+quran rows kept (cap 5000/lang): {'fra_Latn': 5000, 'eng_Latn': 5000}
+
+train rows by domain x target:
+  dictionary  eng_Latn  31148
+  dictionary  fra_Latn  37684
+  locales     eng_Latn  1419
+  locales     fra_Latn  1429
+  phrases     eng_Latn  14450
+  phrases     fra_Latn  15294
+  prose       fra_Latn  7553
+  quran       eng_Latn  5000
+  quran       fra_Latn  5000
+
+dropped by filters:
+  baba_mamadi_diane_parallel_001.fra_Latn: 97
+  baba_mamadi_diane_parallel_002.eng_Latn: 150
+  baba_mamadi_diane_parallel_002.fra_Latn: 169
+  baba_mamadi_diane_parallel_003.eng_Latn: 192
+  baba_mamadi_diane_parallel_004.eng_Latn: 4335
+  djibrila_diane_parallel_001.eng_Latn: 6
+  djibrila_diane_parallel_003.eng_Latn: 2
+  kalo_mory_diane_parallel_001.eng_Latn: 67
+  kalo_mory_diane_parallel_001.fra_Latn: 63
+  kalo_mory_diane_parallel_002.eng_Latn: 7
+  kalo_mory_diane_parallel_002.fra_Latn: 6
+  kalo_mory_diane_parallel_003.eng_Latn: 16
+  kalo_mory_diane_parallel_003.fra_Latn: 7
+  nafadji_sory_conde_parallel_001.fra_Latn: 10
+  nafadji_sory_conde_parallel_003.fra_Latn: 20
+  nafadji_sory_conde_parallel_004.fra_Latn: 1
+  solo_farabado_cisse_parallel_001.eng_Latn: 7
+  solo_farabado_cisse_parallel_001.fra_Latn: 7
+  solo_farabado_cisse_parallel_002.eng_Latn: 18
+  solo_farabado_cisse_parallel_002.fra_Latn: 8
