@@ -10,13 +10,39 @@ translation half of a song-lyrics pipeline (AudioShake stems → ASR → this).
 | `nko_translit.py` | N'Ko → Latin Maninka transliterator + `to_canonical()` normalizer for any Maninka text (N'Ko, Latin with ɛ/ɔ/ɲ, or loose lyric spellings). Use it on **every** input, training and inference, so spelling is consistent. |
 | `build_dataset.py` | Turns the nicolingua-0005 corpus into `out/train.jsonl`, `dev.jsonl`, `test.jsonl`. Caps Quran text, dedupes, filters misaligned pairs, holds out dev/test by English sentence so variants don't leak. |
 | `train_nllb.py` | Baseline eval, fine-tuning, and checkpoint eval (chrF++). |
+| `launch.py` | Runs the steps on Hugging Face Jobs (cloud GPUs) from your laptop. |
+| `push_dataset.py` | Optional: uploads `out/` to a private Hugging Face dataset repo. |
 | `out/` | The prepared dataset (already built). |
 | `songs/song_test.template.jsonl` | Format for a song-lyric test set. Only use lyrics and translations you have the rights to share (your own, or a native speaker's who agrees to publish them). Never train on the test set. |
 
 Current data (`out/stats.txt`): ~119k train pairs (Maninka → English and → French),
 500 dev, 500 test. Training downsamples the dictionary word-lists to 12k per language.
 
-## Run it on RunPod
+## Run it on Hugging Face Jobs (recommended)
+
+No server to manage: each step starts a GPU, runs, and shuts down, billed by the
+second. `launch.py` runs on your laptop; the training runs on Hugging Face.
+
+```bash
+# once, on your laptop
+git clone https://github.com/icbrahimc/maninka-mt && cd maninka-mt
+pip install -U huggingface_hub
+hf auth login          # token with Write access
+# add credits at huggingface.co/settings/billing
+
+python launch.py baseline   # plain NLLB on the test set (the score to beat)
+python launch.py smoke      # tiny training run to check the pipeline
+python launch.py train      # real run; model pushed to <you>/nllb-maninka-v1 (private)
+python launch.py eval       # score the trained model on the test set
+```
+
+Each command prints a link to the job's logs; scores and sample translations are
+at the end. Check `hf jobs ls` for status. The job clones this repo from GitHub,
+so **push local changes before launching**. Defaults: L4 for eval/smoke, A100 for
+training with a 4h limit; override with `--flavor` and `--timeout`, and check
+prices at <https://huggingface.co/docs/hub/jobs-pricing>.
+
+## Run it on RunPod (alternative)
 
 1. Create a pod: **L4 (24GB)** to start (~$0.40/h), template *RunPod PyTorch 2.x*.
    Switch to an A100 once the smoke test passes.
