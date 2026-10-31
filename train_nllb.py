@@ -105,7 +105,8 @@ def main() -> None:
 
     tok = AutoTokenizer.from_pretrained(args.model, src_lang=SRC_LANG)
     dtype = torch.bfloat16 if torch.cuda.is_available() and torch.cuda.is_bf16_supported() else torch.float32
-    model = AutoModelForSeq2SeqLM.from_pretrained(args.model, torch_dtype=dtype)
+    model = AutoModelForSeq2SeqLM.from_pretrained(args.model, dtype=dtype)
+    model.generation_config.max_length = None  # we use max_new_tokens; avoids a warning per batch
     if torch.cuda.is_available():
         model.to("cuda")
 
